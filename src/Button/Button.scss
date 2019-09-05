@@ -1,0 +1,16 @@
+.Button {
+  display: inline-block;
+  margin-left: 20px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+  background-image: url('./img/add.png');
+  cursor: pointer;
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}

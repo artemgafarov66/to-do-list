@@ -1,0 +1,53 @@
+.To-do {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 10px;
+  line-height: 1;
+  background-color: #fff;
+  box-sizing: border-box;
+
+  .name {
+    width: 360px;
+    font-size: 18px;
+  }
+
+  .button-edit, .button-delete {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .button-edit {
+    margin-right: 15px;
+    background-image: url('./img/edit.png');
+  }
+
+  .button-delete {
+    background-image: url('./img/delete.png');
+  }
+
+  .checkbox {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.done {
+    .button-edit {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .name {
+      opacity: 0.3;
+      text-decoration: line-through;
+    }
+  }
+}

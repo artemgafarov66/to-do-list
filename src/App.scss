@@ -1,0 +1,23 @@
+* {
+  user-select: none;
+}
+
+.App {
+  margin: 30px auto 0;
+  padding: 20px;
+  width: 500px;
+  background-color: #ccc;
+
+  .title {
+    font-size: 32px;
+  }
+  
+  .add-line {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .to-do-list {
+    margin-top: 20px;
+  }
+}
