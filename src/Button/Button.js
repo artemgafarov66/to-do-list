@@ -1,14 +1,6 @@
 import React from 'react';
 import './Button.scss';
 
-export default (props) => {
-  const buttonClasses = ['Button'];
-
-  if (props.state === 'disabled') buttonClasses.push('disabled');
-
-  return (
-    <div
-      className={buttonClasses.join(' ')}
-      onClick={props.addToDo}/>
-  )
-}
+export default (props) => <div
+    className={`button-add ${!props.isActive ? 'disabled' : ''}`}
+    onClick={props.addToDo} />;

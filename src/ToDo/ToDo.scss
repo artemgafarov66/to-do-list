@@ -1,6 +1,5 @@
-.To-do {
+.to-do {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
   padding: 10px;
@@ -8,12 +7,46 @@
   background-color: #fff;
   box-sizing: border-box;
 
-  .name {
-    width: 360px;
-    font-size: 18px;
+  .to-do-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .name {
+      width: 360px;
+      line-height: 32px;
+      font-size: 18px;
+    }
+  
+    .checkbox {
+      width: 24px;
+      height: 24px;
+    }
   }
 
-  .button-edit, .button-delete {
+  &.done {
+    .name {
+      opacity: 0.3;
+      text-decoration: line-through;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .to-do-edit {
+    display: flex;
+    align-items: center;
+  }
+
+  .buttons {
+    height: 24px;
+  }
+
+  .button-small {
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -26,28 +59,21 @@
   }
 
   .button-edit {
-    margin-right: 15px;
     background-image: url('./img/edit.png');
   }
 
   .button-delete {
+    margin-left: 15px;
     background-image: url('./img/delete.png');
   }
 
-  .checkbox {
-    width: 24px;
-    height: 24px;
-  }
+  .button-done {
+    margin-left: 15px;
+    background-image: url('./img/done.png');
 
-  &.done {
-    .button-edit {
-      opacity: 0.3;
+    &.disabled {
       pointer-events: none;
-    }
-
-    .name {
       opacity: 0.3;
-      text-decoration: line-through;
     }
   }
 }

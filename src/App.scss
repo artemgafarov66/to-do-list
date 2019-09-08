@@ -12,12 +12,18 @@
     font-size: 32px;
   }
   
-  .add-line {
+  .to-do-form {
     display: flex;
     margin-top: 10px;
   }
   
   .to-do-list {
     margin-top: 20px;
+  }
+
+  input {
+    &:active, &:focus {
+      outline: none;
+    }
   }
 }

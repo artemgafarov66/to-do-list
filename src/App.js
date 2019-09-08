@@ -4,44 +4,66 @@ import Input from './Input/Input';
 import Button from './Button/Button';
 import ToDo from './ToDo/ToDo';
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      toDo: JSON.parse(localStorage.getItem('toDo')) || [],
-      inputValue: '',
-      buttonState: 'disabled',
-    };
-  }
-  
+  state = {
+    toDo: JSON.parse(localStorage.getItem('toDo')) || [],
+    inputValue: '',
+    inputValueEdit: null,
+  };
+
+  copyToDo = () => [...this.state.toDo].map(toDo => ({ ...toDo }));
+
   changeInput(inputValue) {
-    let buttonState = inputValue ? 'active' : 'disabled';
-    this.setState({ inputValue, buttonState });
+    this.setState({ inputValue });
   }
 
-  addToDo() {
-    const toDo = [...this.state.toDo];
-
-    toDo.push({
-      name: this.state.inputValue,
-      done: false,
-    });
-
-    localStorage.setItem('toDo', JSON.stringify(this.toDoSort(toDo)));
-    this.setState({ toDo: this.toDoSort(toDo) });
+  changeInputEdit(inputValueEdit) {
+    this.setState({ inputValueEdit });
   }
 
   onDelete(index) {
-    const toDo = [...this.state.toDo];
+    const toDo = [...this.state.toDo]
     toDo.splice(index, 1);
     toDo.length ? localStorage.setItem('toDo', JSON.stringify(toDo)) : localStorage.clear();
     this.setState({ toDo });
   }
 
   onDone(checked, index) {
-    const toDo = [...this.state.toDo];
-    toDo[index].done = checked;
+    const toDo = this.copyToDo();
+    toDo[index].isDone = checked;
     localStorage.setItem('toDo', JSON.stringify(toDo));
     this.setState({ toDo });
+  }
+
+  onEdit(index) {
+    const toDo = this.copyToDo();
+    toDo[index].isEdit = true;
+    this.setState({ toDo, inputValueEdit: toDo[index].name });
+  }
+
+  onCancel(index) {
+    const toDo = this.copyToDo();
+    toDo[index].isEdit = false;
+    this.setState({ toDo, inputValueEdit: null });
+  }
+
+  onAdd(index) {
+    const toDo = this.copyToDo();
+    if (index === undefined) {
+
+      toDo.push({
+        name: this.state.inputValue,
+        isDone: false,
+        isEdit: false,
+      });
+
+      localStorage.setItem('toDo', JSON.stringify(toDo));
+      return this.setState({ toDo, inputValue: '' });
+    }
+
+    toDo[index].name = this.state.inputValueEdit;
+    toDo[index].isEdit = false;
+    localStorage.setItem('toDo', JSON.stringify(toDo));
+    this.setState({ toDo, inputValueEdit: null })
   }
 
   toDoSort(toDo) {
@@ -57,23 +79,29 @@ class App extends React.Component {
     return (
       <div className='App'>
         <div className='title'>To do:</div>
-        <div className='add-line'>
+        <div className='to-do-form'>
           <Input
-            changeInput={(event) => this.changeInput(event.target.value)} />
+            value={this.state.inputValue}
+            onChange={(event) => this.changeInput(event.target.value)}
+            onAdd={() => this.onAdd()} />
           <Button
-            state={this.state.buttonState}
-            addToDo={this.addToDo.bind(this)} />
+            isActive={this.state.inputValue}
+            addToDo={() => this.onAdd()} />
         </div>
         <div className='to-do-list'>
           {
-            this.state.toDo.map((todo, i) => {
+            this.toDoSort(this.state.toDo).map((toDo, i) => {
               return (
                 <ToDo
                   key={i}
-                  name={todo.name}
-                  onDelete={this.onDelete.bind(this, i)}
+                  toDo={toDo}
+                  valueEdit={this.state.inputValueEdit}
+                  onChange={(event) => this.changeInputEdit(event.target.value)}
+                  onDelete={() => this.onDelete(i)}
                   onDone={(event) => this.onDone(event.target.checked, i)}
-                  isDone={this.state.toDo[i].done} />
+                  onEdit={() => this.onEdit(i)}
+                  onCancel={() => this.onCancel(i)}
+                  onSave={() => this.onAdd(i)} />
               )
             })
           }
