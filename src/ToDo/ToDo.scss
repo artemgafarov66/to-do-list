@@ -7,24 +7,6 @@
   background-color: #fff;
   box-sizing: border-box;
 
-  .to-do-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    .name {
-      width: 360px;
-      line-height: 32px;
-      font-size: 18px;
-    }
-  
-    .checkbox {
-      width: 24px;
-      height: 24px;
-    }
-  }
-
   &.done {
     .name {
       opacity: 0.3;
@@ -37,9 +19,18 @@
     pointer-events: none;
   }
 
-  .to-do-edit {
-    display: flex;
-    align-items: center;
+  .name {
+    margin-left: 10px;
+    width: 360px;
+    line-height: 32px;
+    font-size: 18px;
+  }
+
+  .checkbox {
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
   }
 
   .buttons {

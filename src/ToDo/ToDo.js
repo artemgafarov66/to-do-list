@@ -1,11 +1,11 @@
 import React from 'react';
 import './ToDo.scss';
-import Input from './../Input/Input';
+import Input from '../Input/Input';
 
 export default (props) => (
   <div className={`to-do ${props.toDo.isDone ? 'done' : ''} ${!props.toDo.isEdit && props.valueEdit !== null ? 'disabled' : ''}`}>
     {props.toDo.isEdit &&
-      <div className='to-do-edit'>
+      <>
         <Input
           onChange={props.onChange}
           onAdd={props.onSave}
@@ -13,15 +13,15 @@ export default (props) => (
         <div className='buttons'>
           <div
             onClick={props.onCancel}
-            className='button-small button-delete'/>
+            className='button-small button-delete' />
           <div
             onClick={props.onSave}
-            className={`button-small button-done ${!props.valueEdit ? 'disabled' : ''}`}/>
+            className={`button-small button-done ${!props.valueEdit ? 'disabled' : ''}`} />
         </div>
-      </div>
+      </>
     }
     {!props.toDo.isEdit &&
-      <div className='to-do-item'>
+      <>
         <input
           type='checkbox'
           className='checkbox'
@@ -36,6 +36,6 @@ export default (props) => (
             onClick={props.onDelete}
             className='button-small button-delete' />
         </div>
-      </div>
+      </>
     }
   </div>);
